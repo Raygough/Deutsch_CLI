@@ -4,22 +4,34 @@ Logic for CLI Quiz Tool
 import json
 import random
 
-class Load_Data():
-    def load_vocab():
-# Reading Vocab Data and converting to python dict
+
+'''
+Creates Vocab word + meaning from JSON
+'''
+class Vocabulary():
+    categories = ["masc", "fem", "neut"]
+
+    def __init__(self, word, meaning):
+        self.word = word
+        self.meaning = meaning
+
+    def load_vocab() -> dict:
         with open("vocab.json", "r") as file:
             data = json.load(file)
         return data
+    
+    def make_word(data) -> list[str]:
+        
+
+
+    
+
 
 class Rand_Word():
-    def __init__(self):
-        word: None
-        rand_cat: None
-        meaning: None
-        user_input: None
+    
 
     def make_rand_word(user_input, data):
-        categories = ["masc", "fem", "neut"]
+        
         if(user_input == "nouns"):
             rand_cat = categories[random.randrange(0, len(categories))]
             bound = len(data["nouns"][rand_cat])
