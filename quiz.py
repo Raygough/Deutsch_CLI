@@ -5,7 +5,6 @@ import json
 import random
 
 
-
 class Vocabulary():
     '''
     Creates Vocab word + meaning from JSON
@@ -13,10 +12,10 @@ class Vocabulary():
 
     categories = ["masc", "fem", "neut"]
 
-    def __init__(self, input, word, meaning):
+    def __init__(self, input):
         self.input = input
-        self.word = word
-        self.meaning = meaning
+        self.word
+        self.meaning
 
     def load_vocab() -> dict:
         with open("vocab.json", "r") as file:
@@ -24,43 +23,44 @@ class Vocabulary():
         return data
     
     def make_word_noun(self, data, categories) -> list[str]:
-        if(input == "nouns"):
-            rand_cat = categories[random.randrange(0, len(categories))]
-            bound = len(data["nouns"][rand_cat])
-            rand = random.randrange(0, bound)
+        if(self.input == "nouns"):
+            rand_gen = categories[random.randrange(0, len(categories))]
+            bound = len(data[self.input][rand_gen])
+            word_idx = random.randrange(0, bound)
 
-            word = data["nouns"][rand_cat][rand]["word"]
-            meaning = data["nouns"][rand_cat][rand]["meaning"]
-            return [word, meaning, rand_cat, user_input]
-        elif(user_input == "verbs"):
-            rand_cat = categories[random.randrange(0, len(categories))]
-            bound = len(data["verbs"][rand_cat])
-            rand = random.randrange(0, bound)
-
-            word = data["verbs"][rand_cat][rand]["word"]
-            meaning = data["verbs"][rand_cat][rand]["meaning"]
-            return [word, meaning]
+            self.word = data[self.input][rand_gen][word_idx]["word"]
+            self.meaning = data[self.input][rand_gen][word_idx]["meaning"]
+            return [word, meaning, rand_gen, self.input]
         
-        elif(user_input == "adjectives"):
-            rand_cat = categories[random.randrange(0, len(categories))]
-            bound = len(data["adjectives"][rand_cat])
-            rand = random.randrange(0, bound)
+        elif(self.input == "verbs"):
+            rand_gen = categories[random.randrange(0, len(categories))]
+            bound = len(data[self.input][rand_gen])
+            word_idx = random.randrange(0, bound)
 
-            word = data["adjectives"][rand_cat][rand]["word"]
-            meaning = data["adjectives"][rand_cat][rand]["meaning"]
-            return [word, meaning]
+            word = data[self.input][rand_gen][word_idx]["word"]
+            meaning = data[self.input][rand_gen][word_idx]["meaning"]
+            return [word, meaning, rand_gen, self.input]
+        
+        elif(self.input == "adjectives"):
+            rand_gen = categories[random.randrange(0, len(categories))]
+            bound = len(data[self.input][rand_gen])
+            word_idx = random.randrange(0, bound)
+
+            word = data[self.input][rand_gen][word_idx]["word"]
+            meaning = data[self.input][rand_gen][word_idx]["meaning"]
+            return [word, meaning, rand_gen, self.input]
         
 
-class User_Quiz():
-    def print_word(Rand_Word):
-        print(f"QUESTION: What does \"{word}\" mean?")
+# class User_Quiz(Vocabulary):
+#     def print_word(Rand_Word):
+#         print(f"QUESTION: What does \"{word}\" mean?")
 
-    user_input = input("ANSWER: ")
+#     user_input = input("ANSWER: ")
 
 
-    if(user_input == meaning):
-        print(f"RICHTIG! \"{word}\" means \"{meaning}\"")
-    else:
-        print(f"FALSCH! \"{word}\" means \"{meaning}\"")
+#     if(user_input == Vocabulary.meaning):
+#         print(f"RICHTIG! \"{word}\" means \"{meaning}\"")
+#     else:
+#         print(f"FALSCH! \"{word}\" means \"{meaning}\"")
 
 
