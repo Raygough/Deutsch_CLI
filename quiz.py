@@ -5,13 +5,16 @@ import json
 import random
 
 
-'''
-Creates Vocab word + meaning from JSON
-'''
+
 class Vocabulary():
+    '''
+    Creates Vocab word + meaning from JSON
+    '''
+
     categories = ["masc", "fem", "neut"]
 
-    def __init__(self, word, meaning):
+    def __init__(self, input, word, meaning):
+        self.input = input
         self.word = word
         self.meaning = meaning
 
@@ -20,19 +23,8 @@ class Vocabulary():
             data = json.load(file)
         return data
     
-    def make_word(data) -> list[str]:
-        
-
-
-    
-
-
-class Rand_Word():
-    
-
-    def make_rand_word(user_input, data):
-        
-        if(user_input == "nouns"):
+    def make_word_noun(self, data, categories) -> list[str]:
+        if(input == "nouns"):
             rand_cat = categories[random.randrange(0, len(categories))]
             bound = len(data["nouns"][rand_cat])
             rand = random.randrange(0, bound)
@@ -40,7 +32,6 @@ class Rand_Word():
             word = data["nouns"][rand_cat][rand]["word"]
             meaning = data["nouns"][rand_cat][rand]["meaning"]
             return [word, meaning, rand_cat, user_input]
-        
         elif(user_input == "verbs"):
             rand_cat = categories[random.randrange(0, len(categories))]
             bound = len(data["verbs"][rand_cat])
@@ -58,20 +49,18 @@ class Rand_Word():
             word = data["adjectives"][rand_cat][rand]["word"]
             meaning = data["adjectives"][rand_cat][rand]["meaning"]
             return [word, meaning]
-
+        
 
 class User_Quiz():
     def print_word(Rand_Word):
         print(f"QUESTION: What does \"{word}\" mean?")
 
+    user_input = input("ANSWER: ")
 
 
-user_input = input("ANSWER: ")
-
-
-if(user_input == meaning):
-    print(f"RICHTIG! \"{word}\" means \"{meaning}\"")
-else:
-    print(f"FALSCH! \"{word}\" means \"{meaning}\"")
+    if(user_input == meaning):
+        print(f"RICHTIG! \"{word}\" means \"{meaning}\"")
+    else:
+        print(f"FALSCH! \"{word}\" means \"{meaning}\"")
 
 
