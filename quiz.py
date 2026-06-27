@@ -1,3 +1,5 @@
+import argparse
+
 '''
 Logic for CLI Quiz Tool
 '''
@@ -9,28 +11,12 @@ def load_vocab() -> dict:
             data = json.load(file)
         return data
 
-def valid_cat() -> str:
-    while True:
-        user_cat = input("Enter your selection: ")
+def valid_rounds(value) -> str:
+    value = int(value)
+    if value <= 0:
+        raise argparse.ArgumentTypeError("Number of rounds must be greater than 0")
         
-        if user_cat.lower() in ['nouns', 'verbs', 'adjectives']:
-            break
-        else:
-            print("Please enter \"nouns\", \"verbs\", or \"adjectives\"")
-
-    return user_cat
-
-def valid_rounds() -> str:
-    while True:
-        try:
-            user_rounds = int(input("Enter the number of " \
-            "words you want to be tested on: "))
-            break
-        except ValueError:
-            print("Please only enter an integer\n")
-            continue
-        
-    return user_rounds
+    return value
 
 class Word():
     '''
@@ -46,32 +32,27 @@ class Word():
     def make_word(self) -> list[str]:
         categories = ["masc", "fem", "neut"]
         
-        try:
-            if(self.input == "nouns"):
-                rand_gender = categories[random.randrange(0, len(categories))]
-                bound = len(self.data[self.input][rand_gender])
-                word_idx = random.randrange(0, bound)
-                self.word = self.data[self.input][rand_gender][word_idx]["word"]
-                self.meaning = self.data[self.input][rand_gender][word_idx]["meaning"]
-                return [self.word, self.meaning, rand_gender, self.input]
-            
-            elif(self.input == "verbs"):
-                bound = len(self.data[self.input])
-                word_idx = random.randrange(0, bound)
-                self.word = self.data[self.input][word_idx]["word"]
-                self.meaning = self.data[self.input][word_idx]["meaning"]
-                return [self.word, self.meaning, self.input]
+        if(self.input == "nouns"):
+            rand_gender = categories[random.randrange(0, len(categories))]
+            bound = len(self.data[self.input][rand_gender])
+            word_idx = random.randrange(0, bound)
+            self.word = self.data[self.input][rand_gender][word_idx]["word"]
+            self.meaning = self.data[self.input][rand_gender][word_idx]["meaning"]
+            return [self.word, self.meaning, rand_gender, self.input]
         
-            elif(self.input == "adjectives"):
-                bound = len(self.data[self.input])
-                word_idx = random.randrange(0, bound)
-                self.word = self.data[self.input][word_idx]["word"]
-                self.meaning = self.data[self.input][word_idx]["meaning"]
-                return [self.word, self.meaning, self.input]
-        
-        except ValueError:
-            print(f"\"{self.input}\" is an invalid input. Please enter" \
-                  "nouns, verbs, or adjectives")
+        elif(self.input == "verbs"):
+            bound = len(self.data[self.input])
+            word_idx = random.randrange(0, bound)
+            self.word = self.data[self.input][word_idx]["word"]
+            self.meaning = self.data[self.input][word_idx]["meaning"]
+            return [self.word, self.meaning, self.input]
+    
+        elif(self.input == "adjectives"):
+            bound = len(self.data[self.input])
+            word_idx = random.randrange(0, bound)
+            self.word = self.data[self.input][word_idx]["word"]
+            self.meaning = self.data[self.input][word_idx]["meaning"]
+            return [self.word, self.meaning, self.input]
         
 
 class Quiz():
