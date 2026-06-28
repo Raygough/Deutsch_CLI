@@ -1,4 +1,6 @@
 *.json
 venv/
 __pycache__
+*.pyc
 *.csv
+.env
