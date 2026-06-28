@@ -6,10 +6,7 @@ Logic for CLI Quiz Tool
 import json
 import random
 
-def load_vocab() -> dict:
-        with open("vocab.json", "r") as file:
-            data = json.load(file)
-        return data
+
 
 def valid_rounds(value) -> str:
     value = int(value)
@@ -18,41 +15,7 @@ def valid_rounds(value) -> str:
         
     return value
 
-class Word():
-    '''
-    Creates Vocab word + meaning from JSON
-    '''
 
-    def __init__(self, input):
-        self.input = input
-        self.word = ""
-        self.meaning = ""
-        self.data = load_vocab()
-
-    def make_word(self) -> list[str]:
-        categories = ["masc", "fem", "neut"]
-        
-        if(self.input == "nouns"):
-            rand_gender = categories[random.randrange(0, len(categories))]
-            bound = len(self.data[self.input][rand_gender])
-            word_idx = random.randrange(0, bound)
-            self.word = self.data[self.input][rand_gender][word_idx]["word"]
-            self.meaning = self.data[self.input][rand_gender][word_idx]["meaning"]
-            return [self.word, self.meaning, rand_gender, self.input]
-        
-        elif(self.input == "verbs"):
-            bound = len(self.data[self.input])
-            word_idx = random.randrange(0, bound)
-            self.word = self.data[self.input][word_idx]["word"]
-            self.meaning = self.data[self.input][word_idx]["meaning"]
-            return [self.word, self.meaning, self.input]
-    
-        elif(self.input == "adjectives"):
-            bound = len(self.data[self.input])
-            word_idx = random.randrange(0, bound)
-            self.word = self.data[self.input][word_idx]["word"]
-            self.meaning = self.data[self.input][word_idx]["meaning"]
-            return [self.word, self.meaning, self.input]
         
 
 class Quiz():

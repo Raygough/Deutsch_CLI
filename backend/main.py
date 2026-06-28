@@ -1,9 +1,9 @@
-import argparse, time
+import time
 import random
 from datetime import datetime
 from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
-from quiz import Word, Quiz, Session
+from services.vocab import Word
 from quiz import valid_rounds
 
 
@@ -12,15 +12,10 @@ Promgram Driver
 '''
 app = FastAPI()
 
-@app.get("/")
-def home():
-    return {"message": "Willkomen meinen menschen!"}
-
 @app.get("/word")
 def get_word(category: str):
     word = Word(category)
-    word.make_word()
-    return {"word": word.word, "meaning": word.meaning}
+    return word.make_word()
 
 # def Main():
 #     parser = argparse.ArgumentParser()
